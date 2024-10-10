@@ -213,7 +213,18 @@ Edit content directly in the respective sections of the code, or use an admin pa
 
 #### Analytics: Track page views and interactions with Google Analytics.
 
+## Steps to follow :scroll:
 
+### Tip : Complete this process in GitHub (in your browser)
+
+```mermaid
+flowchart LR
+    Fork[Fork the project]-->branch[Create a New Branch]
+    branch-->Edit[Edit file]
+    Edit-->commit[Commit the changes]
+    commit -->|Finally|creatpr((Create a Pull Request))
+    
+ ```
 
 ---
 
