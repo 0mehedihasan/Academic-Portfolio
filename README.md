@@ -105,8 +105,8 @@ Each menu button provides categorized information with easy navigation:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/academic-portfolio.git
-   cd academic-portfolio
+   git clone https://github.com/0mehedihasan/Academic-Portfolio.git
+   cd Academic-Portfolio
 
 2. Install backend dependencies:
 ```
