@@ -1,6 +1,6 @@
 # Academic Portfolio
-## Visit : https://0mehedihasan.github.io/Academic-Portfolio/
-
+Visit : https://0mehedihasan.github.io/Academic-Portfolio/
+---
 ## Project Overview
 
 **Academic Portfolio** is a web-based platform designed for academic scholars or researchers to showcase their academic achievements, research contributions, projects, and personal information in a structured and elegant manner. It allows for easy navigation through categorized sections and provides options for light/dark modes and multiple languages. This portfolio is responsive, making it accessible from any device, and can be customized to fit the unique needs of the individual academic or researcher.
