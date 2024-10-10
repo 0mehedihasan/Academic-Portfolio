@@ -190,10 +190,11 @@ git push origin feature/your-feature-name
 
 
 ---
+## Our Top Contributors 
 
-Project Contributors
-
-Feel free to contribute and add your name to the contributors' list!
+<p align="center"><a href="https://github.com/0mehedihasan/Academic-Portfolio/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=0mehedihasan/Academic-Portfolio" max={1000} columns={100} anon={1}/>
+</a></p>
 
 
 ---
