@@ -1,6 +1,14 @@
 # Academic Portfolio
-Visit : https://0mehedihasan.github.io/Academic-Portfolio/
+
+Visit: [https://0mehedihasan.github.io/Academic-Portfolio/](https://0mehedihasan.github.io/Academic-Portfolio/)
+
 ---
+## Our Top Contributors 
+
+<p align="center"><a href="https://github.com/0mehedihasan/Academic-Portfolio/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=0mehedihasan/Academic-Portfolio" max={1000} columns={100} anon={1}/>
+</a></p>
+
 ## Project Overview
 
 **Academic Portfolio** is a web-based platform designed for academic scholars or researchers to showcase their academic achievements, research contributions, projects, and personal information in a structured and elegant manner. It allows for easy navigation through categorized sections and provides options for light/dark modes and multiple languages. This portfolio is responsive, making it accessible from any device, and can be customized to fit the unique needs of the individual academic or researcher.
@@ -65,6 +73,14 @@ Each menu button provides categorized information with easy navigation:
 
 ## Technology Stack
 
+### Backend
+- **Node.js**: JavaScript runtime used to build the backend services and APIs.
+- **Express.js**: Framework for building fast, scalable web applications and RESTful APIs.
+- **MongoDB**: NoSQL database used for storing dynamic content like publications, projects, and user data.
+  - **Mongoose**: ODM library for MongoDB that simplifies database interactions.
+- **JWT Authentication**: Secure API access for authorized users (optional).
+- **Bcrypt.js**: For password hashing and securing sensitive data (optional).
+
 ### Frontend
 - **HTML5**: For page structure.
 - **CSS3**: Styling and layout.
@@ -73,56 +89,91 @@ Each menu button provides categorized information with easy navigation:
   - **i18next**: For language localization.
   - **LocalStorage**: To save theme and language preferences.
 
-### Backend (Optional)
-- **Java/JSP** or **Python (Flask/Django)**: For dynamic data handling and user management.
-- **Database** (Optional for storing dynamic content):
-  - **MySQL** or **PostgreSQL**.
-
 ### Deployment Platforms
 - **GitHub**: For version control.
-- **Deployment**: Can be deployed on **Heroku**, **Netlify**, or a custom server.
+- **Deployment**: Hosted on **Heroku** or **Render** (for Node.js backend) and **Netlify** (for static frontend files).
 
 ---
 
 ## Installation
+
+### Prerequisites
+- **Node.js** and **npm** should be installed.
+- **MongoDB** instance (local or cloud-based, like MongoDB Atlas).
+
+### Steps
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/academic-portfolio.git
    cd academic-portfolio
 
-2. Install dependencies (if using npm or yarn):
-
+2. Install backend dependencies:
+```
 npm install
+```
+3. Create a .env file in the root directory with the following environment variables:
+```
+PORT=3000
+MONGO_URI=<your_mongodb_connection_string>
+JWT_SECRET=<your_jwt_secret_key>
+```
 
-
-3. Run the application (for local development):
-
+4. Start the application:
+```
 npm start
+```
 
-
-4. Open the app in your browser at:
-
-http://localhost:3000
-
+5. Visit the application at: ```http://localhost:3000```
 
 
 
 ---
 
-Usage
+### API Endpoints
 
-Light/Dark Mode
+#### Publications
+
+```GET /api/publications``` - Retrieves all publications.
+
+```POST /api/publications``` - Adds a new publication (authentication required).
+
+
+#### Projects
+
+```GET /api/projects``` - Retrieves all projects.
+
+```POST /api/projects``` - Adds a new project (authentication required).
+
+
+#### Contact Form
+
+```POST /api/contact``` - Sends a message through the contact form.
+
+
+#### Authentication
+
+```POST /api/auth/login``` - Logs in a user.
+
+```POST /api/auth/registe```r - Registers a new user.
+
+
+
+---
+
+### Usage
+
+#### Light/Dark Mode
 
 Users can toggle between light and dark modes from the sidebar. The system will remember the last selected mode.
 
 
-Language Support
+#### Language Support
 
 Use the language dropdown in the sidebar to switch between English (UK), English (US), German, and French. The content will update automatically to reflect the selected language.
 
 
-Customization
+#### Customization
 
 Edit content directly in the respective sections of the code, or use an admin panel (if implemented) for easier updates.
 
@@ -130,84 +181,45 @@ Edit content directly in the respective sections of the code, or use an admin pa
 
 ---
 
-Project Structure
-
+### Project Structure
+```
+├── backend <br>
+│   ├── models               # MongoDB models (publications, projects, etc.)<br>
+│   ├── routes               # Express routes for handling API requests <br>
+│   ├── controllers          # Functions handling business logic <br>
+│   └── server.js            # Entry point for the Node.js/Express backend <br>
 ├── public <br>
-│   ├── index.html          # Main HTML page<br>
-│   ├── css<br>
-│   │   └── styles.css      # Custom CSS styles<br>
-│   └── js<br>
-│       └── app.js          # JavaScript for interactivity<br>
-├── src<br>
-│   ├── components          # React components or other UI components <br>
-│   ├── pages               # Pages like About, Projects, Publications, etc.<br>
-│   └── i18n                # Language files (JSON) for localization <br>
-├── README.md               # Project documentation <br>
-└── package.json            # Project dependencies and scripts<br>
+│   ├── index.html           # Main HTML page<br>
+│   ├── css <br>
+│   │   └── styles.css       # Custom CSS styles <br>
+│   └── js <br>
+│       └── app.js           # JavaScript for frontend interactivity <br>
+├── src <br>
+│   ├── components           # React or other frontend components <br>
+│   ├── pages                # Pages like About, Projects, Publications, etc. <br>
+│   └── i18n                 # Language files (JSON) for localization <br>
+├── .env                     # Environment variables <br>
+├── README.md                # Project documentation <br> 
+└── package.json             # Project dependencies and scripts <br>
 
-
+```
 ---
 
-Future Enhancements
+### Future Enhancements
 
-Admin Panel: A dashboard for managing portfolio content dynamically.
+#### Admin Panel: A dashboard for managing portfolio content dynamically.
 
-Advanced Search: Improve search functionality to allow filtering publications and projects.
+#### Email Integration: Automated email notifications for contact form submissions.
 
-API Integrations: Automatically fetch data from external sources like Google Scholar or ORCID.
+#### Analytics: Track page views and interactions with Google Analytics.
 
-Contributors Section: Display GitHub profiles of contributors to the project.
-
-
-
----
-
-Contributing
-
-We welcome contributions from the community! To get started:
-
-1. Fork this repository.
-
-
-2. Create a new branch for your feature or bugfix:
-
-git checkout -b feature/your-feature-name
-
-
-3. Commit your changes:
-
-git commit -m 'Add your feature description'
-
-
-4. Push your branch to GitHub:
-
-git push origin feature/your-feature-name
-
-
-5. Open a pull request with a description of your changes.
-
-
-
-
----
-## Our Top Contributors 
-
-<p align="center"><a href="https://github.com/0mehedihasan/Academic-Portfolio/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=0mehedihasan/Academic-Portfolio" max={1000} columns={100} anon={1}/>
-</a></p>
 
 
 ---
 
 License
 
-This project is licensed under the Apache2.0 License. See the LICENSE file for details.
+This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
 
+This `README.md` now reflects that the project is licensed under the **Apache License 2.0**.
 
----
-
-Contact
-
-If you have any questions or suggestions, feel free to contact:
-
-Md Mehedi Hasan: mdmehedihasansr@gmail.com
