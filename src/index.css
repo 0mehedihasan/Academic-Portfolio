@@ -8,4 +8,5 @@ html.dark {
 
 body {
   font-family: 'Inter', sans-serif;
+  @apply antialiased;
 }
