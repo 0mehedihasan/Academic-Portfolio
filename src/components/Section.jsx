@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Section({ title, type, content, items, setData }) {
+function Section({ title, type, content, items, setData, isAdmin }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newItem, setNewItem] = useState('');
   const [editText, setEditText] = useState(content || '');
@@ -40,80 +40,87 @@ function Section({ title, type, content, items, setData }) {
   };
 
   return (
-    <section className="mb-10">
-      <h2 className="mb-4 text-2xl font-semibold text-gray-800 dark:text-white">{title}</h2>
-      {type === 'text' ? (
-        <p className="text-gray-700 dark:text-gray-300">{content || 'Click "Edit" to add info.'}</p>
-      ) : (
-        <ul className="space-y-4">
-          {items && items.length > 0 ? (
-            items.map(item => (
-              <li
-                key={item.id}
-                className="flex items-center justify-between p-4 bg-white rounded-lg shadow dark:bg-gray-800"
+    <section className="mb-12">
+      <h2 className="mb-4 text-3xl font-bold text-gray-800 dark:text-white">{title}</h2>
+      <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+        {type === 'text' ? (
+          <p className="text-gray-700 dark:text-gray-200">{content || 'No info added yet.'}</p>
+        ) : (
+          <ul className="space-y-4">
+            {items && items.length > 0 ? (
+              items.map(item => (
+                <li
+                  key={item.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-md dark:bg-gray-700"
+                >
+                  {isEditing ? (
+                    <input
+                      defaultValue={item.title}
+                      onBlur={e => handleUpdateItem(item.id, e.target.value)}
+                      className="flex-1 p-2 border rounded dark:bg-gray-600 dark:text-white"
+                    />
+                  ) : (
+                    <span className="text-gray-700 dark:text-gray-200">{item.title}</span>
+                  )}
+                  {isEditing && isAdmin && (
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="px-3 py-1 ml-4 text-white transition bg-red-500 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  )}
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-600 dark:text-gray-400">No items added yet.</p>
+            )}
+          </ul>
+        )}
+        {isAdmin && isEditing ? (
+          <div className="mt-6 space-y-4">
+            {type === 'text' ? (
+              <textarea
+                value={editText}
+                onChange={e => setEditText(e.target.value)}
+                className="w-full p-3 border rounded dark:bg-gray-600 dark:text-white"
+                rows="4"
+                placeholder="Enter your text here..."
+              />
+            ) : (
+              <input
+                value={newItem}
+                onChange={e => setNewItem(e.target.value)}
+                className="w-full p-3 border rounded dark:bg-gray-600 dark:text-white"
+                placeholder={`Add a new ${title.toLowerCase()}...`}
+              />
+            )}
+            <div className="flex space-x-2">
+              <button
+                onClick={type === 'text' ? handleUpdateText : handleAdd}
+                className="px-4 py-2 text-white transition bg-green-600 rounded hover:bg-green-700"
               >
-                {isEditing ? (
-                  <input
-                    defaultValue={item.title}
-                    onBlur={e => handleUpdateItem(item.id, e.target.value)}
-                    className="w-full p-2 text-gray-700 border rounded dark:bg-gray-700 dark:text-gray-200"
-                  />
-                ) : (
-                  <span className="text-gray-700 dark:text-gray-200">{item.title}</span>
-                )}
-                {isEditing && (
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    className="px-3 py-1 ml-2 text-white transition bg-red-500 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                )}
-              </li>
-            ))
-          ) : (
-            <p className="text-gray-600 dark:text-gray-400">No items yet. Add some!</p>
-          )}
-        </ul>
-      )}
-      {isEditing ? (
-        <div className="mt-6">
-          {type === 'text' ? (
-            <textarea
-              value={editText}
-              onChange={e => setEditText(e.target.value)}
-              className="w-full p-3 text-gray-700 border rounded dark:bg-gray-700 dark:text-gray-200"
-              rows="4"
-            />
-          ) : (
-            <input
-              value={newItem}
-              onChange={e => setNewItem(e.target.value)}
-              className="w-full p-3 text-gray-700 border rounded dark:bg-gray-700 dark:text-gray-200"
-              placeholder={`Add a new ${title.toLowerCase()}...`}
-            />
-          )}
-          <button
-            onClick={type === 'text' ? handleUpdateText : handleAdd}
-            className="px-4 py-2 mt-2 text-white transition bg-green-500 rounded hover:bg-green-600"
-          >
-            Save
-          </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            className="px-4 py-2 mt-2 ml-2 text-gray-700 transition bg-gray-200 rounded hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setIsEditing(true)}
-          className="px-4 py-2 mt-4 text-white transition bg-blue-600 rounded hover:bg-blue-700"
-        >
-          Edit {title}
-        </button>
-      )}
+                Save
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                className="px-4 py-2 text-gray-700 transition bg-gray-200 rounded hover:bg-gray-300 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          isAdmin && (
+            <button
+              onClick={() => setIsEditing(true)}
+              className="px-4 py-2 mt-4 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+            >
+              Edit {title}
+            </button>
+          )
+        )}
+      </div>
     </section>
   );
 }
