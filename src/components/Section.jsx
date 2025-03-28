@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function Section({ title, type, content, items, setData, isAdmin }) {
+function Section({ id, title, type, content, items, setData, isAdmin }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newItem, setNewItem] = useState('');
   const [editText, setEditText] = useState(content || '');
@@ -40,32 +40,36 @@ function Section({ title, type, content, items, setData, isAdmin }) {
   };
 
   return (
-    <section className="mb-12">
-      <h2 className="mb-4 text-3xl font-bold text-gray-800 dark:text-white">{title}</h2>
-      <div className="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
+    <section id={id} className="mb-16">
+      <h2 className="mb-6 text-4xl font-bold text-gray-800 dark:text-white border-b-2 border-indigo-600 pb-2">
+        {title}
+      </h2>
+      <div className="p-8 bg-white rounded-xl shadow-lg dark:bg-gray-800">
         {type === 'text' ? (
-          <p className="text-gray-700 dark:text-gray-200">{content || 'No info added yet.'}</p>
+          <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-lg">
+            {content || 'No information provided yet.'}
+          </p>
         ) : (
-          <ul className="space-y-4">
+          <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {items && items.length > 0 ? (
               items.map(item => (
                 <li
                   key={item.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-md dark:bg-gray-700"
+                  className="p-6 bg-gray-50 rounded-lg dark:bg-gray-700 shadow-md hover:shadow-lg transition"
                 >
                   {isEditing ? (
                     <input
                       defaultValue={item.title}
                       onBlur={e => handleUpdateItem(item.id, e.target.value)}
-                      className="flex-1 p-2 border rounded dark:bg-gray-600 dark:text-white"
+                      className="w-full p-2 border rounded dark:bg-gray-600 dark:text-white"
                     />
                   ) : (
-                    <span className="text-gray-700 dark:text-gray-200">{item.title}</span>
+                    <span className="text-gray-700 dark:text-gray-200 font-medium">{item.title}</span>
                   )}
                   {isEditing && isAdmin && (
                     <button
                       onClick={() => handleDelete(item.id)}
-                      className="px-3 py-1 ml-4 text-white transition bg-red-500 rounded hover:bg-red-600"
+                      className="mt-3 px-3 py-1 text-white bg-red-600 rounded-full hover:bg-red-700"
                     >
                       Delete
                     </button>
@@ -73,38 +77,38 @@ function Section({ title, type, content, items, setData, isAdmin }) {
                 </li>
               ))
             ) : (
-              <p className="text-gray-600 dark:text-gray-400">No items added yet.</p>
+              <p className="text-gray-600 dark:text-gray-400 col-span-full">No items added yet.</p>
             )}
           </ul>
         )}
         {isAdmin && isEditing ? (
-          <div className="mt-6 space-y-4">
+          <div className="mt-8 space-y-6">
             {type === 'text' ? (
               <textarea
                 value={editText}
                 onChange={e => setEditText(e.target.value)}
-                className="w-full p-3 border rounded dark:bg-gray-600 dark:text-white"
-                rows="4"
+                className="w-full p-4 border rounded-lg dark:bg-gray-600 dark:text-white"
+                rows="6"
                 placeholder="Enter your text here..."
               />
             ) : (
               <input
                 value={newItem}
                 onChange={e => setNewItem(e.target.value)}
-                className="w-full p-3 border rounded dark:bg-gray-600 dark:text-white"
+                className="w-full p-4 border rounded-lg dark:bg-gray-600 dark:text-white"
                 placeholder={`Add a new ${title.toLowerCase()}...`}
               />
             )}
-            <div className="flex space-x-2">
+            <div className="flex space-x-4">
               <button
                 onClick={type === 'text' ? handleUpdateText : handleAdd}
-                className="px-4 py-2 text-white transition bg-green-600 rounded hover:bg-green-700"
+                className="px-6 py-2 text-white bg-indigo-600 rounded-full hover:bg-indigo-700"
               >
                 Save
               </button>
               <button
                 onClick={() => setIsEditing(false)}
-                className="px-4 py-2 text-gray-700 transition bg-gray-200 rounded hover:bg-gray-300 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
+                className="px-6 py-2 text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300 dark:bg-gray-600 dark:text-white dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
@@ -114,7 +118,7 @@ function Section({ title, type, content, items, setData, isAdmin }) {
           isAdmin && (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-4 py-2 mt-4 text-white transition bg-blue-600 rounded hover:bg-blue-700"
+              className="mt-6 px-6 py-2 text-white bg-indigo-600 rounded-full hover:bg-indigo-700"
             >
               Edit {title}
             </button>
